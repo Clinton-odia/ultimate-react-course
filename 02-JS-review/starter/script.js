@@ -142,3 +142,5 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+const fullname = "clinton";
+const name = `my name is ${fullname}`;

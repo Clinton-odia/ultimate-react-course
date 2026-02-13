@@ -6,12 +6,16 @@ function App() {
   const [count, setCount] = useState(0);
   async function getadvice() {
     setAdvice("Loading...");
-    const url = "https://api.adviceslip.com/advice";
-    const data = await fetch(url);
-    const res = await data.json();
-    setCount((c) => c + 1);
-
-    setAdvice(res.slip.advice);
+    try {
+      const url = "https://api.adviceslip.com/advice";
+      const data = await fetch(url);
+      const res = await data.json();
+      setAdvice(res.slip.advice);
+      setCount((c) => c + 1);
+    } catch (error) {
+      setAdvice("Can't connect to API");
+      console.error("the error is", error);
+    }
   }
   useEffect(() => {
     getadvice();
@@ -20,7 +24,7 @@ function App() {
     <div>
       <h1>{advice}</h1>
       <button onClick={getadvice}>Get Advice</button>
-      <p>you have read {count} of advice</p>
+      {count > 5 && <p>you have read {count} of advice</p>}
     </div>
   );
 }
